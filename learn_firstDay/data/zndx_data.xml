@@ -9,7 +9,7 @@
             <field name="website_id" ref="website.default_website"/>
         </record>
         <record id="menu_order" model="website.menu">
-            <field name="name">订餐</field>
+            <field name="name">订餐系统</field>
             <field name="url">/websites/restaurant/order</field>
             <field name="parent_id" ref="learn_firstDay.menu_homepage"/>
             <field name="sequence" type="int">11</field>
