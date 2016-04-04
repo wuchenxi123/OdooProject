@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <menuitem
+            id="menu_restaurant_top"
+            name="饭店"/>
+        <menuitem
+            id="menu_restaurant_press"
+            name="业务"
+            parent="menu_restaurant_top"/>
+          <menuitem
+            id="menu_restaurant_setup"
+            name="设置"
+            parent="menu_restaurant_top"/>
+    </data>
+</openerp>

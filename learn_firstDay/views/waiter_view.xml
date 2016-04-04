@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_waiter_tree" model="ir.ui.view">
+            <field name="name">服务员列表</field>
+            <field name="model">zndx.waiter</field>
+            <field name="arch" type="xml">
+                <tree string="服务员">
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_waiter_form" model="ir.ui.view">
+            <field name="name">服务员表单</field>
+            <field name="model">zndx.waiter</field>
+            <field name="arch" type="xml">
+                <form string="服务员">
+                    <sheet>
+                        <group string="服务员信息">
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="waiter_action" model="ir.actions.act_window">
+            <field name="name">服务员</field>
+            <field name="res_model">zndx.waiter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="toproerp_brands_view_search"/>-->
+        </record>
+
+        <menuitem id="menu_waiter_setup_waiter"
+                  name="服务员"
+                  action="waiter_action"
+                  parent="menu_restaurant_setup"/>
+
+
+    </data>
+</openerp>

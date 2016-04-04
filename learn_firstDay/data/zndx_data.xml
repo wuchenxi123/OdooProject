@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="menu_homepage" model="website.menu">
+            <field name="name">HomeZndx</field>
+            <field name="url">/order</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">10</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+        <record id="menu_order" model="website.menu">
+            <field name="name">订餐</field>
+            <field name="url">/websites/restaurant/order</field>
+            <field name="parent_id" ref="learn_firstDay.menu_homepage"/>
+            <field name="sequence" type="int">11</field>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+    </data>
+    <data>
+        <record id="learn_firstDay.model_zndx_order" model="ir.model">
+            <!--<field name="website_form_default_field_id" ref="crm.field_crm_lead_description" />-->
+            <field name="website_form_access">True</field>
+            <field name="website_form_label">Create a order</field>
+        </record>
+    </data>
+    <!-- 加载自己编写的js或css文件-->
+    <template id="website_zldx_order" name="Website CRM Tests" inherit_id="web.assets_common">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/learn_firstDay/static/src/js/order.js"></script>
+        </xpath>
+    </template>
+
+</openerp>

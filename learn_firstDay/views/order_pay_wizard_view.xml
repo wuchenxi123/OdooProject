@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_order_pay_wizard_form" model="ir.ui.view">
+            <field name="name">订单付款表单</field>
+            <field name="model">zndx.order_pay_wizard</field>
+            <field name="arch" type="xml">
+                <form string="订单付款">
+                    <sheet>
+                        <group string="订单付款信息">
+                                <field name="order_id"/>
+                                <field name="price"/>
+                                <field name="recept_money"/>
+                                <field name="change_money"/>
+                        </group>
+                        <footer>
+                            <button name="pay" type="object"
+                                    string="确认付款" class="oe_highlight"/>
+                            or
+                            <button special="cancel" string="放弃"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="order_pay_wizard_action" model="ir.actions.act_window">
+            <field name="name">订单付款</field>
+            <field name="res_model">zndx.order_pay_wizard</field>
+            <field name="src_model">zndx.order</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="key2">client_action_multi</field>
+            <!--<field name="search_view_id" ref="toproerp_brands_view_search"/>-->
+        </record>
+
+    </data>
+</openerp>

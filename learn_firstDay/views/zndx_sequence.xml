@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_sequence_order" model="ir.sequence">
+            <field name="name">seq_sequence_order</field>
+            <field name="model">zndx.order</field>
+            <field name="model">order/%(year)s%(month)s%(day)s/</field>
+            <field name="padding">6</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zndx_order_waiter,zndx.order waiter,model_zndx_order,group_restaurant_waiter,1,0,0,0
+access_zndx_order_cashier,zndx.order cashier,model_zndx_order,group_restaurant_cashier,1,1,1,0
+access_zndx_restaurant_waiter,zndx.restaurant waiter,model_zndx_restaurant,group_restaurant_waiter,1,0,0,0
+access_zndx_restaurant_cashier,zndx.restaurant cashier,model_zndx_restaurant,group_restaurant_cashier,1,1,1,0
+access_zndx_soup_waiter,zndx.soup waiter,model_zndx_soup,group_restaurant_waiter,1,0,0,0
+access_zndx_soup_cashier,zndx.soup cashier,model_zndx_soup,group_restaurant_cashier,1,1,1,0
+access_zndx_waiter_waiter,zndx.waiter waiter,model_zndx_waiter,group_restaurant_waiter,1,0,0,0
+access_zndx_waiter_cashier,zndx.waiter cashier,model_zndx_waiter,group_restaurant_cashier,1,1,1,0

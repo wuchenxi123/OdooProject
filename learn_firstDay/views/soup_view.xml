@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_soup_tree" model="ir.ui.view">
+            <field name="name">汤列表</field>
+            <field name="model">zndx.soup</field>
+            <field name="arch" type="xml">
+                <tree string="汤">
+                    <field name="name"/>
+                    <field name="price"/>
+                    <field name="restaurant_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_soup_form" model="ir.ui.view">
+            <field name="name">汤表单</field>
+            <field name="model">zndx.soup</field>
+            <field name="arch" type="xml">
+                <form string="汤">
+                    <sheet>
+                        <group string="汤信息">
+                            <field name="name"/>
+                            <field name="price"/>
+                            <field name="restaurant_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="soup_action" model="ir.actions.act_window">
+            <field name="name">汤</field>
+            <field name="res_model">zndx.soup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="toproerp_brands_view_search"/>-->
+        </record>
+
+        <menuitem id="menu_soup_setup_soup"
+                  name="汤"
+                  action="soup_action"
+                  parent="menu_restaurant_setup"/>
+
+
+    </data>
+</openerp>

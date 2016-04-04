@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="layout" name="zndx_layout">
+            &lt;!DOCTYPE html&gt;
+            <html style="height:100%">
+                <head manifest="IGNORE.manifest">
+                    <meta name="viewport"
+                          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+                    <t t-raw="head or ''"/>
+                </head>
+                <body>
+                    <t t-raw="0"/>
+                </body>
+            </html>
+        </template>
+
+        <template id="index">
+            <t t-call="website.layout">
+                <t t-set="head">
+                    <title>
+                        <t t-esc="restaurant.name"/>
+                    </title>
+                </t>
+                <t t-set="seq" t-value="0"/>
+                <t t-foreach="restaurant.soup_ids" t-as="soup">
+                    <t t-set="seq" t-value="seq+1"/>
+                    <p t-esc="seq"/>
+                    <p t-att-class="soup.name">
+                        <a t-att-href="'/hello1/%s' % soup.name"><t t-esc="soup.name"/>:
+                            <t t-esc="soup.price"/>
+                        </a>
+                    </p>
+                    <p>
+                        <t t-esc="'%s - %s' % (soup.name,soup.price) "/>
+                    </p>
+                </t>
+                <t t-set="foo">
+                    <li>ok</li>
+                </t>
+                <p>
+                    <t t-esc="foo"/>
+                </p>
+                <p t-raw="foo"/>
+            </t>
+
+        </template>
+
+
+        <template id="order">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <h1>
+                            <t t-esc="restaurant.name"/>,欢迎您来订餐!
+                        </h1>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="oe_structure">
+                                    <div>
+                                        <p>请选择你要订的汤，并输入您的联系方式。</p>
+                                        <p>我们将在1秒内送汤上门。（当然这是一个美梦...)</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <form action="/website_form/" method="post" data-model_name="zndx.order"
+                                          data-success_page="/page/learn_firstDay.contactus_thanks"
+                                          t-att-data-restaurant_id="restaurant.id"
+                                          class="s_website_form form-horizontal container-fluid mt32"
+                                          enctype="multipart/form-data">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="restaurant_id" t-att-value="restaurant.id"/>
+                                        <div class="form-group form-field o_website_form_required_custom">
+                                            <label class="col-md-3 col-sm-4 control-label" for="contact_name">
+                                                可选择的汤
+                                            </label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <select id="soup_id" name="soup_id" class="col-md-7 col-sm-8">
+                                                <t t-foreach="restaurant.soup_ids" t-as="soup">
+                                                    <option t-att-value="soup.id"><t t-esc="soup.name"/>
+                                                    (<t t-esc="soup.price"/>元/份)</option>
+                                                </t>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" id="price" name="price" value="1"/>
+                                        <input type="hidden" id="tax" name="tax" value="0.17"/>
+                                        <input type="hidden" id="payment" name="payment" value="1"/>
+
+                                        <div class="form-group form-field o_website_form_required_custom">
+                                            <label class="col-md-3 col-sm-4 control-label" >
+                                                应付金额
+                                            </label>
+                                            <div class="col-md-7 col-sm-8 control-label">
+                                                <p id="calc_price">
+
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-field o_website_form_required_custom">
+                                            <label class="col-md-3 col-sm-4 control-label" for="contact_name">
+                                                联系人
+                                            </label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <input type="text" class="form-control o_website_form_input"
+                                                       name="contact_name" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-field">
+                                            <label class="col-md-3 col-sm-4 control-label" for="phone">联系电话
+                                            </label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <input type="text" class="form-control o_website_form_input"
+                                                       placeholder="e.g. (+32).81.81.37.00" name="phone"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-field o_website_form_required_custom">
+                                            <label class="col-md-3 col-sm-4 control-label" for="partner_name">联系地址
+                                                Company
+                                            </label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <input type="text" class="form-control o_website_form_input"
+                                                       name="address" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-field o_website_form_required">
+                                            <label class="col-md-3 col-sm-4 control-label" for="name">特别的要求</label>
+                                            <div class="col-md-7 col-sm-8">
+                                                <input type="text" class="form-control o_website_form_input"
+                                                       name="remark"
+                                                       required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                                <button class="btn btn-primary btn-lg o_website_form_send">确认并下单
+                                                </button>
+                                                <span id="o_website_form_result"></span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+
+        </template>
+
+
+        <template id="contactus_thanks" name="Contact us">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <h1>Thanks!</h1>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="alert alert-success">
+                                    您的预订已经接受.
+                                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                                </div>
+                                <p>
+                                    您的男神正在飞速来到你家的路上.
+                                </p>
+                                <p class="mt64">
+                                    如果你等不及了，请联系: 0731-888888
+                                </p>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <i class="fa fa-phone"></i>
+                                        :
+                                        <span t-field="res_company.phone"/>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-envelope"></i>
+                                        :
+                                        <span t-field="res_company.email"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <t t-call="website.company_description"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

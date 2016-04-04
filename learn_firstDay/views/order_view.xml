@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_order_tree" model="ir.ui.view">
+            <field name="name">订单列表</field>
+            <field name="model">zndx.order</field>
+            <field name="arch" type="xml">
+                <tree string="订单">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="restaurant_id"/>
+                    <field name="soup_id"/>
+                    <field name="price"/>
+                    <field name="tax"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">订单表单</field>
+            <field name="model">zndx.order</field>
+            <field name="arch" type="xml">
+                <form string="订单">
+                    <header>
+                        <button id="pay"
+                                name="%(order_pay_wizard_action)d"
+                                class="oe_read_only oe_highlight"
+                                string="收款"
+                                attrs="{'invisible':[('state','!=','未付款')]}"
+                                context="{'order_id':id,'price':price}"
+                                type="action"/>
+                         <button name="pay1" type="object"
+                                    string="已上菜" class="oe_highlight"
+                                 attrs="{'invisible':[('state','!=','已付款')]}"
+                                 />
+                         <button name="pay2" type="object"
+                                    string="已完成" class="oe_highlight"
+                                 attrs="{'invisible':[('state','!=','已上菜')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group string="订单信息">
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="restaurant_id"/>
+                                <field name="soup_id"/>
+
+                            </group>
+                            <group>
+
+                                <field name="price"/>
+                                <field name="tax"/>
+                                <field name="payment" attrs="{'invisible':[('state','=','未付款')]}"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_order_search" model="ir.ui.view">
+            <field name="name">订单表单</field>
+            <field name="model">zndx.order</field>
+            <field name="arch" type="xml">
+                <search string="订单">
+                    <field name="state"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="restaurant_id"/>
+                    <field name="soup_id"/>
+                    <field name="price"/>
+
+                    <filter string="未付款订单" name="state" domain="[('state','=','未付款')]"/>
+                    <filter string="待上菜订单" name="state" domain="[('state','=','已付款')]"/>
+                    <group>
+                        <filter name="state" string="状态" context="{'group_by':'state'}"/>
+                        <filter name="partner_id" string="客户" context="{'group_by':'partner_id'}"/>
+                        <filter name="restaurant_id" string="饭店" context="{'group_by':'restaurant_id'}"/>
+                        <filter name="soup_id" string="汤" context="{'group_by':'soup_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="order_action" model="ir.actions.act_window">
+            <field name="name">订单</field>
+            <field name="res_model">zndx.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="toproerp_brands_view_search"/>-->
+        </record>
+
+        <menuitem id="menu_restaurant_setup_order"
+                  name="订单"
+                  action="order_action"
+                  parent="menu_restaurant_press"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_restaurant_tree" model="ir.ui.view">
+            <field name="name">饭店列表</field>
+            <field name="model">zndx.restaurant</field>
+            <field name="arch" type="xml">
+                <tree string="饭店">
+                    <field name="name"/>
+                    <field name="soup_ids"/>
+                    <field name="waiter_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_restaurant_form" model="ir.ui.view">
+            <field name="name">饭店表单</field>
+            <field name="model">zndx.restaurant</field>
+            <field name="arch" type="xml">
+                <form string="饭店">
+                    <sheet>
+                        <group string="饭店信息">
+                            <field name="name"/>
+                            <field name="soup_ids"/>
+
+                        </group>
+                         <field name="waiter_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="restaurant_action" model="ir.actions.act_window">
+            <field name="name">饭店</field>
+            <field name="res_model">zndx.restaurant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="toproerp_brands_view_search"/>-->
+        </record>
+
+        <menuitem id="menu_restaurant_setup_restaurant"
+        name="饭店"
+        action="restaurant_action"
+        parent="menu_restaurant_setup"/>
+
+
+    </data>
+</openerp>
